@@ -1,13 +1,12 @@
 import { chromium } from "playwright";
 import fs from "fs";
+import { city, county } from "./config.js";
 
 (async () => {
-  const browser = await chromium.launch({ headless: false });
+  const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage();
 
   // Define the city and county you want to search for
-  const city = "ringwood";
-  const county = "Passaic";
 
   // Construct the URL with the city and county
   const searchURL = `https://www.njmls.com/listings/index.cfm?action=dsp.results&city=${encodeURIComponent(
@@ -69,17 +68,14 @@ import fs from "fs";
   // Scrape the first page
   await scrapeCurrentPage();
 
-  // Find the total number of pages
+  // Find the total number of pages by counting the <li> elements in the pagination
   const totalPages = await page.evaluate(() => {
-    const paginationItems = document.querySelectorAll(
-      "#pagelist .page-item.pagenumbers"
-    );
-    return paginationItems.length;
+    return document.querySelectorAll("#pagelist .page-item.pagenumbers").length;
   });
 
   // Loop through all pages and scrape data
   for (let i = 2; i <= totalPages; i++) {
-    // Click on the next page number
+    // Click on the page number link
     await page.click(`#pagelist .page-item.pagenumbers:nth-child(${i}) a`);
 
     // Wait for the new page to load
