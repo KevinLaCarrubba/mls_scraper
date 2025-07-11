@@ -26,33 +26,28 @@ This is a Node.js-based web scraper that collects real estate listing data from 
 
 To run the scraper, follow these steps:
 
-1. Open the `scraper.js` file in a text editor.
-
-2. Locate the following lines near the beginning of the file:
-
-   ```javascript
-   const city = 'Cliffside Park'; // Change this to the desired city
-   const county = 'BERGEN';       // Change this to the desired county
-   ```
-
-3. Modify the `city` and `county` variables to reflect the location you want to scrape. For example:
-
-   ```javascript
-   const city = 'Hoboken';
-   const county = 'HUDSON';
-   ```
-
-4. Save the `scraper.js` file.
-
-5. Run the scraper using the following command:
+1. Start the web server:
 
    ```bash
-   node scraper.js
+   node server.js
    ```
 
-6. After the script completes, it will generate a file named `listings.html` in the project directory.
+2. Open your web browser and navigate to:
 
-7. Open the `listings.html` file in your web browser to view the collected data.
+   ```
+   http://localhost:3000
+   ```
+
+3. On the web interface:
+   - Select your desired **County** from the dropdown menu
+   - Select your desired **City** from the dropdown menu (cities will populate based on your county selection)
+   - Click **"Start Scraping"** to begin the process
+
+4. Wait for the scraping process to complete. A loading indicator will show progress.
+
+5. Once complete, click **"View Listings"** to see the scraped real estate data in your browser.
+
+The web interface provides an easy way to select from available New Jersey counties and cities without manually editing configuration files.
 
 ## Output
 
